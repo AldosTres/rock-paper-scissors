@@ -1,6 +1,6 @@
 import { getPlayerSelection } from './getPlayerSelection.js';
 import { computerSelection } from './computerSelection.js';
-import { calculateScore } from './playRound.js';
+import { playRound } from './playRound.js'
 import { GAME_VALUES } from './gameValues.js';
 
 const rock = `
@@ -79,7 +79,7 @@ Computer Score: ${computerScore}
         console.log("🤖 Computer chose:");
         console.log(gameImages[GAME_VALUES.indexOf(computerChoice)]);
 
-        const message = calculateScore(playerChoice, computerChoice);
+        const message = playRound(playerChoice, computerChoice)
 
         console.log(message);
 

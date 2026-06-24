@@ -1,5 +1,5 @@
 import { getPlayerSelection } from './getPlayerSelection.js';
-import { computerSelection } from './computerSelection.js';
+import { computerPlay } from './computerPlay.js';
 import { playRound } from './playRound.js'
 import { GAME_VALUES } from './gameValues.js';
 
@@ -71,7 +71,7 @@ Computer Score: ${computerScore}
         `);
 
         const playerChoice = getPlayerSelection();
-        const computerChoice = computerSelection();
+        const computerChoice = computerPlay();
 
         console.log("\n🧑 You chose:");
         console.log(gameImages[GAME_VALUES.indexOf(playerChoice)]);

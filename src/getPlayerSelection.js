@@ -1,7 +1,11 @@
 import { ValidationError } from './errors/domainErrors.js';
 
 import { QUIRKY_AND_INFORMATIVE_USER_INPUT_ERROR_MESSAGES } from './errors/errorMessages.js';
-import { GAME_VALUES } from './gameValues.js';
+import {
+  GAME_VALUES,
+  VALID_ALTERNATIVE_SELECTIONS,
+  mapAlternativeSelectionToGameValue,
+} from './gameValues.js';
 import { getRandomItemFromArray } from './utils/getRandomItemFromArray.js';
 import { handleErrors } from './errors/handleErrors.js';
 
@@ -16,7 +20,7 @@ export function getPlayerSelection() {
 
       ensureValidPlayerSelection(trimmedPlayerSelection);
 
-      return trimmedPlayerSelection;
+      return mapAlternativeSelectionToGameValue(trimmedPlayerSelection);
     } catch (error) {
       handleErrors(error);
     }
@@ -26,7 +30,15 @@ export function getPlayerSelection() {
 function ensureValidPlayerSelection(playerSelection) {
   const normalizedPlayerSelection = playerSelection.toLowerCase();
 
-  if (!GAME_VALUES.includes(normalizedPlayerSelection))
+  const isCanonicalSelection = GAME_VALUES.includes(normalizedPlayerSelection);
+
+  const isAlternativeSelection = Object.values(
+    VALID_ALTERNATIVE_SELECTIONS,
+  ).some((gameValueAlternatives) =>
+    gameValueAlternatives.includes(normalizedPlayerSelection),
+  );
+
+  if (!isCanonicalSelection && !isAlternativeSelection)
     throw new ValidationError(
       getRandomItemFromArray(QUIRKY_AND_INFORMATIVE_USER_INPUT_ERROR_MESSAGES),
     );

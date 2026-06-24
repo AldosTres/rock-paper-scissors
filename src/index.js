@@ -1,6 +1,4 @@
 import { getPlayerSelection } from './getPlayerSelection.js';
+import { game } from './game.js';
 
-while (true) {
-  const playerSelection = getPlayerSelection();
-  console.log(`You selected: ${playerSelection}`);
-}
+game();

@@ -3,7 +3,7 @@ import { game } from './game.js';
 import { handleErrors } from './errors/handleErrors.js';
 
 try {
-  game();
+  await game();
 } catch (error) {
   handleErrors(error);
 }

@@ -8,9 +8,14 @@ import {
 } from './gameValues.js';
 import { getRandomItemFromArray } from './utils/getRandomItemFromArray.js';
 import { handleErrors } from './errors/handleErrors.js';
+import { sleep } from './utils/sleep.js';
 
-export function getPlayerSelection() {
+export async function getPlayerSelection() {
   while (true) {
+    // Yield to the event loop so the console can flush pending
+    // messages before the next blocking prompt() steals the thread.
+    await sleep();
+
     const playerSelection = prompt(
       `Please select one of the following: ${GAME_VALUES.join(', ')}. (Type \'Restart\' to restart the game)`,
     );

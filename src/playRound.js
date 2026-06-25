@@ -1,15 +1,17 @@
+import { rock, paper, scissors } from './gameValues.js';
+
 const WINNING_MOVES = {
-  rock: {
-    beats: "scissors",
-    action: "crushes",
+  [rock]: {
+    beats: scissors,
+    action: 'crushes',
   },
-  paper: {
-    beats: "rock",
-    action: "covers",
+  [paper]: {
+    beats: rock,
+    action: 'covers',
   },
-  scissors: {
-    beats: "paper",
-    action: "cuts",
+  [scissors]: {
+    beats: paper,
+    action: 'cuts',
   },
 };
 

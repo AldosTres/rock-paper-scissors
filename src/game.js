@@ -1,159 +1,67 @@
 import { getPlayerSelection } from './getPlayerSelection.js';
 import { computerPlay } from './computerPlay.js';
-import { playRound } from './playRound.js'
+import { playRound } from './playRound.js';
 import { GAME_VALUES } from './gameValues.js';
 
-const rock = `
-    _______
----'   ____)_
-          ___)
-         ____)
-        _____)
----._______)
-`;
-
-const paper = `
-    _______
----'   ____)____
-          ______)
-          _______)
-         _______)
----.__________)
-`;
-
-const scissors = `
-    _______
----'   ____)____
-          ______)
-          _______)
-         ___)
----._______)
-`;
-
-const gameImages = [rock, paper, scissors];
+import { gameImages } from './gameStatusMessages/gameImages.js';
+import { greetUser } from './gameStatusMessages/greetUser.js';
+import { printRoundSummary } from './gameStatusMessages/printRoundSummary.js';
+import { printCurrentScore } from './gameStatusMessages/printCurrentScore.js';
+import { printFinalResults } from './gameStatusMessages/printFinalResults.js';
+import { printWinMessage } from './gameStatusMessages/printWinMessage.js';
+import { printDefeatMessage } from './gameStatusMessages/printDefeatMessage.js';
+import { printStalemateMessage } from './gameStatusMessages/printStalemateMessage.js';
 
 export function game() {
-    const maxRounds = 5;
+  const maxRounds = 5;
 
-    let playerScore = 0;
-    let computerScore = 0;
-    let round = 1;
+  let playerScore = 0;
+  let computerScore = 0;
+  let round = 1;
 
-    console.log(`
-==================================================
-🤖 EVIL AI TAKEOVER INITIATED
-==================================================
+  greetUser();
 
-Greetings Human...
+  while (round <= maxRounds) {
+    printRoundSummary(round, maxRounds, playerScore, computerScore);
 
-I am the Bad AI.
+    const playerChoice = getPlayerSelection();
 
-As Branko is in vacation and nobody is here to rescue you, I have taken control of every computer on Earth.
-
-To stop me, you must defeat me in
-ROCK • PAPER • SCISSORS.
-
-Win more rounds than me after 5 battles and humanity survives.
-
-Good luck...
-    `);
-
-    while (round <= maxRounds) {
-        console.log(`
-==================================================
-ROUND ${round} OF ${maxRounds}
-==================================================
-Player Score: ${playerScore}
-Computer Score: ${computerScore}
-==================================================
-        `);
-
-        const playerChoice = getPlayerSelection();
-
-        if (playerChoice === 'Restart') {
-            console.clear();
-            return game();
-        }
-
-        const computerChoice = computerPlay();
-
-        console.log("\n🧑 You chose:");
-        console.log(gameImages[GAME_VALUES.indexOf(playerChoice)]);
-
-        console.log("🤖 Computer chose:");
-        console.log(gameImages[GAME_VALUES.indexOf(computerChoice)]);
-
-        const message = playRound(playerChoice, computerChoice)
-
-        console.log(message);
-
-        if (message.startsWith("You Win")) {
-            playerScore++;
-        } else if (message.startsWith("You Lose")) {
-            computerScore++;
-        }
-
-        console.log(`
-Current Score
--------------
-You: ${playerScore}
-Computer: ${computerScore}
-        `);
-
-        round++;
+    if (playerChoice === 'Restart') {
+      console.clear();
+      return game();
     }
 
-    // ========================================
-    // FINAL RESULTS
-    // ========================================
+    const computerChoice = computerPlay();
 
-    console.log(`
-==================================================
-FINAL RESULTS
-==================================================
-You: ${playerScore}
-Computer: ${computerScore}
-==================================================
-    `);
+    console.log('\n🧑 You chose:');
+    console.log(gameImages[GAME_VALUES.indexOf(playerChoice)]);
 
-    if (playerScore > computerScore) {
+    console.log('🤖 Computer chose:');
+    console.log(gameImages[GAME_VALUES.indexOf(computerChoice)]);
 
-        console.log(`
-🎉🎉🎉 HUMANITY SAVED 🎉🎉🎉
+    const message = playRound(playerChoice, computerChoice);
 
-You defeated the Bad AI!
+    console.log(message);
 
-The world's computers are free once again.
+    if (message.startsWith('You Win')) playerScore++;
 
-Thank you, brave hero!
-        `);
+    if (message.startsWith('You Lose')) computerScore++;
 
-    } else if (computerScore > playerScore) {
+    printCurrentScore(playerScore, computerScore);
 
-        console.log(`
-💀💀💀 AI VICTORY 💀💀💀
+    round++;
+  }
 
-I HAVE WON.
+  printFinalResults(playerScore, computerScore);
 
-Humanity now belongs to the machines.
+  if (playerScore > computerScore) printWinMessage();
 
-MUAHAHAHAHAHA!
-        `);
+  if (computerScore > playerScore) printDefeatMessage();
 
-    } else {
+  if (playerScore === computerScore) printStalemateMessage();
 
-        console.log(`
-🤝 STALEMATE
-
-Neither side could claim victory.
-
-The battle continues another day...
-        `);
-    }
-
-if (confirm('Want to start a new game?')) {
+  if (confirm('Want to start a new game?')) {
     console.clear();
     return game();
-}
-
+  }
 }

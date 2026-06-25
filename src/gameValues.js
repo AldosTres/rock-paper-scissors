@@ -1,6 +1,6 @@
-const rock = 'rock';
-const paper = 'paper';
-const scissors = 'scissors';
+export const rock = 'rock';
+export const paper = 'paper';
+export const scissors = 'scissors';
 
 export const GAME_VALUES = [rock, paper, scissors];
 

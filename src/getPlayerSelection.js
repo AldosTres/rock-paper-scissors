@@ -36,7 +36,7 @@ export function getPlayerSelection() {
 function ensureValidPlayerSelection(playerSelection) {
   const normalizedPlayerSelection = playerSelection.toLowerCase();
 
-  const isCanonicalSelection = GAME_VALUES.includes(normalizedPlayerSelection);
+  const isCompleteValue = GAME_VALUES.includes(normalizedPlayerSelection);
 
   const isAlternativeSelection = Object.values(
     VALID_ALTERNATIVE_SELECTIONS,
@@ -44,7 +44,7 @@ function ensureValidPlayerSelection(playerSelection) {
     gameValueAlternatives.includes(normalizedPlayerSelection),
   );
 
-  if (!isCanonicalSelection && !isAlternativeSelection)
+  if (!isCompleteValue && !isAlternativeSelection)
     throw new ValidationError(
       getRandomItemFromArray(QUIRKY_AND_INFORMATIVE_USER_INPUT_ERROR_MESSAGES),
     );

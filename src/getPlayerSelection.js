@@ -11,16 +11,22 @@ import { handleErrors } from './errors/handleErrors.js';
 
 export function getPlayerSelection() {
   while (true) {
-    try {
-      const playerSelection = prompt(
-        `Please select one of the following: ${GAME_VALUES.join(', ')}`,
-      );
+    const playerSelection = prompt(
+      `Please select one of the following: ${GAME_VALUES.join(', ')}. (Type \'Restart\' to restart the game)`,
+    );
 
+    try {
       const trimmedPlayerSelection = playerSelection?.trim();
 
-      ensureValidPlayerSelection(trimmedPlayerSelection);
+      if (trimmedPlayerSelection !== 'Restart') {
+        ensureValidPlayerSelection(trimmedPlayerSelection);
 
-      return mapAlternativeSelectionToGameValue(trimmedPlayerSelection);
+        return mapAlternativeSelectionToGameValue(trimmedPlayerSelection);
+      } else {
+        if (confirm('Are you sure you want to restart the game?')) {
+          return 'Restart';
+        }
+      }
     } catch (error) {
       handleErrors(error);
     }

@@ -7,8 +7,8 @@ const rock = `
     _______
 ---'   ____)_
           ___)
-          ___)
          ____)
+        _____)
 ---._______)
 `;
 
@@ -38,8 +38,6 @@ export function game() {
     let playerScore = 0;
     let computerScore = 0;
     let round = 1;
-
-    console.clear();
 
     console.log(`
 ==================================================
@@ -71,6 +69,12 @@ Computer Score: ${computerScore}
         `);
 
         const playerChoice = getPlayerSelection();
+
+        if (playerChoice === 'Restart') {
+            console.clear();
+            return game();
+        }
+
         const computerChoice = computerPlay();
 
         console.log("\n🧑 You chose:");
@@ -90,10 +94,10 @@ Computer Score: ${computerScore}
         }
 
         console.log(`
-            Current Score
-            -------------
-            You: ${playerScore}
-            Computer: ${computerScore}
+Current Score
+-------------
+You: ${playerScore}
+Computer: ${computerScore}
         `);
 
         round++;
@@ -146,4 +150,10 @@ Neither side could claim victory.
 The battle continues another day...
         `);
     }
+
+if (confirm('Want to start a new game?')) {
+    console.clear();
+    return game();
+}
+
 }

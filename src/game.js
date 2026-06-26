@@ -12,6 +12,7 @@ import { printWinMessage } from './gameStatusMessages/printWinMessage.js';
 import { printDefeatMessage } from './gameStatusMessages/printDefeatMessage.js';
 import { printStalemateMessage } from './gameStatusMessages/printStalemateMessage.js';
 import { sleep } from './utils/sleep.js';
+import { confirmStartGame } from './confirmStartGame.js';
 
 export async function game() {
   const maxRounds = 5;
@@ -20,9 +21,9 @@ export async function game() {
   let computerScore = 0;
   let round = 1;
 
-  greetUser();
+  await confirmStartGame();
 
-  await sleep();
+  greetUser();
 
   while (round <= maxRounds) {
     printRoundSummary(round, maxRounds, playerScore, computerScore);
@@ -64,7 +65,6 @@ export async function game() {
   if (playerScore === computerScore) printStalemateMessage();
 
   await sleep();
-
   if (confirm('Want to start a new game?')) {
     console.clear();
     return game();

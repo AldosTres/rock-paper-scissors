@@ -11,7 +11,7 @@ export async function confirmStartGame() {
   return(confirm(message));
 }
 
-export const INITIAL_USER_CONFIRMATION_MESSAGES = [
+const INITIAL_USER_CONFIRMATION_MESSAGES = [
   "⚠️ Intruder detected. Confirm that you're still capable of making decisions. Press OK if you're brave enough.",
   "🤖 Before we begin my inevitable conquest... prove you're a real human. Press OK.",
   '🧠 Scanning for organic intelligence... Please remain still and press OK.',

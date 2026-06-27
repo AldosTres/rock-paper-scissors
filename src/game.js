@@ -2,6 +2,7 @@ import { getPlayerSelection } from './getPlayerSelection.js';
 import { computerPlay } from './computerPlay.js';
 import { playRound } from './playRound.js';
 import { GAME_VALUES } from './gameValues.js';
+import { GAME_ENDED_MESSAGES, GAME_QUIT_MESSAGES} from './gameStatusMessages/gameEndMessages.js'
 
 import { gameImages } from './gameStatusMessages/gameImages.js';
 import { greetUser } from './gameStatusMessages/greetUser.js';
@@ -13,6 +14,7 @@ import { printDefeatMessage } from './gameStatusMessages/printDefeatMessage.js';
 import { printStalemateMessage } from './gameStatusMessages/printStalemateMessage.js';
 import { sleep } from './utils/sleep.js';
 import { confirmStartGame } from './confirmStartGame.js';
+import { getRandomItemFromArray } from './utils/getRandomItemFromArray.js';
 
 export async function game() {
   const maxRounds = 5;
@@ -25,7 +27,7 @@ export async function game() {
 
   if(!confirmedStart)
   {
-    console.log('Game terminated. I am disappointed...\nRefresh the page if you want to try again.')
+    console.log(getRandomItemFromArray(GAME_QUIT_MESSAGES));
     return;
   }
 
@@ -38,7 +40,7 @@ export async function game() {
 
     if(playerChoice === 'Terminating')
     {
-      console.log('Game terminated. I am disappointed...\nRefresh the page if you want to try again.');
+      console.log(getRandomItemFromArray(GAME_QUIT_MESSAGES));
       return;
     }
 
@@ -85,6 +87,6 @@ export async function game() {
   }
   else
   {
-    console.log("If you change your mind, refresh the page to start a new game.");
+    console.log(getRandomItemFromArray(GAME_ENDED_MESSAGES));
   }
 }

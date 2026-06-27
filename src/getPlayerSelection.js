@@ -21,17 +21,28 @@ export async function getPlayerSelection() {
     );
 
     try {
-      const trimmedPlayerSelection = playerSelection?.trim();
-
-      if (trimmedPlayerSelection !== 'Restart') {
-        ensureValidPlayerSelection(trimmedPlayerSelection);
-
-        return mapAlternativeSelectionToGameValue(trimmedPlayerSelection);
-      } else {
-        if (confirm('Are you sure you want to restart the game?')) {
-          return 'Restart';
+      if(playerSelection === null)
+      {
+        if (confirm('Are you sure you want to terminate the game?'))
+        {
+          return 'Terminating';
         }
       }
+      else
+      {
+        const trimmedPlayerSelection = playerSelection?.trim();
+
+        if (trimmedPlayerSelection !== 'Restart') {
+          ensureValidPlayerSelection(trimmedPlayerSelection);
+
+          return mapAlternativeSelectionToGameValue(trimmedPlayerSelection);
+        } else {
+          if (confirm('Are you sure you want to restart the game?')) {
+            return 'Restart';
+          }
+        }
+      }
+      
     } catch (error) {
       handleErrors(error);
     }

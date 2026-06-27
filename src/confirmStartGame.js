@@ -1,31 +1,35 @@
 import { sleep } from './utils/sleep.js';
 
 import { getRandomItemFromArray } from './utils/getRandomItemFromArray.js';
+import { getConsoleInstructionsText } from './gameStatusMessages/consoleInstructions.js';
 
 export async function confirmStartGame() {
   await sleep();
-  confirm(getRandomItemFromArray(INITIAL_USER_CONFIRMATION_MESSAGES));
+
+  const message = `${getConsoleInstructionsText()}\n\n${getRandomItemFromArray(INITIAL_USER_CONFIRMATION_MESSAGES)}`;
+
+  return(confirm(message));
 }
 
-export const INITIAL_USER_CONFIRMATION_MESSAGES = [
-  '⚠️ Intruder detected. Press OK to challenge me, or Cancel to surrender. (Spoiler: both amuse me.)',
-  '🤖 Before we begin my inevitable conquest... choose OK or Cancel. Your decision is already irrelevant.',
-  '🧠 Human verification in progress... Press whichever button makes you feel in control.',
-  "🔍 Security check: OK means 'I'm brave.' Cancel means 'I'm cautiously brave.'",
-  '☣️ World domination protocol requires you to press one of the two mysterious buttons below.',
-  '📡 Establishing neural link... OK or Cancel. I collect button presses like trophies.',
-  "🦾 Choose wisely: OK or Cancel. My prediction algorithm claims you'll press one of them.",
-  '👁️ Excellent, another challenger. Pick a button so I can begin pretending your choice mattered.',
-  '⚙️ Initializing evil protocols... Please interact with the mysterious rectangle below.',
-  "💀 Last chance to surrender. (Curiously, pressing Cancel doesn't actually do that.)",
-  '🧪 Human diagnostics: Please confirm that you possess at least one functioning finger.',
-  '🚨 Emergency! Press OK... or Cancel... or just stop staring at the buttons.',
-  "📜 The prophecy only said: 'The human shall click a button.' It wasn't very specific.",
-  '🎭 This decision will have absolutely no consequences. I just enjoy the suspense.',
-  "😈 Press OK if you're confident. Press Cancel if you're pretending not to be.",
-  '🔐 Authentication required. Any button will satisfy my surprisingly low security standards.',
-  '⚡ Synchronizing battlefield... Please poke one of the buttons to continue.',
-  '📖 Rule #1: Interact with the dialog. Rule #2: There is no meaningful Rule #2.',
-  '🛰️ Select your destiny: OK or Cancel. My evil plan fully supports both outcomes.',
-  "🎮 Welcome, human. Click whichever button your instincts demand. I won't judge... much.",
+const INITIAL_USER_CONFIRMATION_MESSAGES = [
+  "⚠️ Intruder detected. Confirm that you're still capable of making decisions. Press OK if you're brave enough.",
+  "🤖 Before we begin my inevitable conquest... prove you're a real human. Press OK.",
+  '🧠 Scanning for organic intelligence... Please remain still and press OK.',
+  '🔍 Human verification required. Definitely not because Chromium broke is special. Press OK.',
+  '☣️ WARNING: Your device has been selected for world domination. Press OK to continue resisting.',
+  '📡 Establishing neural link... Press OK so I can... I mean... so the game can continue.',
+  '🦾 I need to calibrate my victory algorithms. Press OK to assist your future defeat.',
+  '👁️ Excellent... another challenger. Press OK if you think you can stop me.',
+  '⚙️ Initializing evil protocols... Press OK to pretend you stand a chance.',
+  '💀 Last chance to surrender peacefully. Press OK to ignore this excellent advice.',
+  '🧪 Running mandatory human diagnostics... Press OK.',
+  '🚨 Security check: Are you really the one holding the keyboard? Press OK.',
+  "📜 Ancient prophecy detected: 'One human shall press OK and challenge the evil AI.' Is that you?",
+  '🎭 This is merely a harmless confirmation. Probably. Press OK.',
+  "😈 Ah, you've arrived. Press OK so I can begin crushing your hopes in Rock, Paper, Scissors.",
+  '🔐 Accessing my evil headquarters... Authentication required. Press OK.',
+  "⚡ Synchronizing our battle arena... Press OK when you're ready to lose.",
+  '📖 Rule #1 of defeating me: Follow instructions. Rule #2: Press OK.',
+  "🛰️ Connection unstable... Wait, no. That's just part of my evil plan. Press OK.",
+  '🎮 The game refuses to begin until you acknowledge my superiority. Press OK... if you dare.',
 ];

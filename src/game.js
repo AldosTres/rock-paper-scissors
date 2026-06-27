@@ -21,7 +21,13 @@ export async function game() {
   let computerScore = 0;
   let round = 1;
 
-  await confirmStartGame();
+  const confirmedStart = await confirmStartGame();
+
+  if(!confirmedStart)
+  {
+    console.log('Game terminated. I am disappointed...\nRefresh the page if you want to try again.')
+    return;
+  }
 
   greetUser();
 
@@ -29,6 +35,14 @@ export async function game() {
     printRoundSummary(round, maxRounds, playerScore, computerScore);
 
     const playerChoice = await getPlayerSelection();
+
+    if(playerChoice === 'Terminating')
+    {
+      console.log('Game terminated. I am disappointed...\nRefresh the page if you want to try again.');
+      return;
+    }
+
+
 
     if (playerChoice === 'Restart') {
       console.clear();
@@ -68,5 +82,9 @@ export async function game() {
   if (confirm('Want to start a new game?')) {
     console.clear();
     return game();
+  }
+  else
+  {
+    console.log("If you change your mind, refresh the page to start a new game.");
   }
 }
